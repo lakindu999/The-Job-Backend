@@ -62,5 +62,10 @@ public class AppointmentServiceImpl implements AppointmentService {
             throw new RuntimeException("Appointment Not Found");
         }
     }
+
+    @Override
+    public List<Appointment> getAppointmentsByEmail(String email) {
+        return appointmentRepository.findByEmail(email);
+    }
 }
 

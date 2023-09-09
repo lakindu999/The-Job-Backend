@@ -8,7 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,15 +30,16 @@ public class ConsultantLoginController {
 
     //Consultant Login
     @PostMapping("/save")
-    public ResponseEntity<Object> login(@RequestBody ConsultantLoginDto consultantLoginDto) {
+    public ResponseEntity<Object> login(@RequestBody ConsultantLoginDto consultantLoginDto, HttpSession session) {
         String email = consultantLoginDto.getEmail();
         String password = consultantLoginDto.getPassword();
 
         Consultant consultant = consultantRepo.findByEmailAndPassword(email, password);
         if (consultant != null) {
             // User authenticated successfully
-            return  Response.responseBuilder("User Login Successfully.", HttpStatus.OK, consultantRepo.findByEmailAndPassword(email, password));
+            session.setAttribute("email", email);
 
+            return Response.responseBuilder("User Login Successfully.", HttpStatus.OK, consultantRepo.findByEmailAndPassword(email, password));
         } else {
             // Invalid credentials
             Map<String, String> errorResponse = new HashMap<>();

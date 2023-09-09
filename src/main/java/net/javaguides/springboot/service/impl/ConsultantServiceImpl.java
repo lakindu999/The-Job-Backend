@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ConsultantServiceImpl implements ConsultantService {
@@ -58,5 +59,21 @@ public class ConsultantServiceImpl implements ConsultantService {
         else{
             throw new RuntimeException("No Consultants Found");
         }
+    }
+
+    @Override
+    public List<String> getAllConsultantNames() {
+        List<Consultant> consultants = consultantRepository.findAll();
+        return consultants.stream()
+                .map(Consultant::getConsultantName)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<String> getAllConsultantEmails() {
+        List<Consultant> consultants = consultantRepository.findAll();
+        return consultants.stream()
+                .map(Consultant::getEmail)
+                .collect(Collectors.toList());
     }
 }

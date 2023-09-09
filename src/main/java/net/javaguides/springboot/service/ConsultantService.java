@@ -13,4 +13,8 @@ public interface ConsultantService {
     void deleteConsultant(int id);
 
     List<ConsultantDto> getConsultant();
+
+    List<String> getAllConsultantNames();
+
+    List<String> getAllConsultantEmails();
 }

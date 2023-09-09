@@ -1,6 +1,7 @@
 package net.javaguides.springboot.service;
 
 import net.javaguides.springboot.dto.AppointmentDto;
+import net.javaguides.springboot.entity.Appointment;
 
 import java.util.List;
 
@@ -13,4 +14,6 @@ public interface AppointmentService {
     void updateAppointments(AppointmentDto appointmentDto);
 
     void deleteAppointment(int id);
+
+    List<Appointment> getAppointmentsByEmail(String email);
 }

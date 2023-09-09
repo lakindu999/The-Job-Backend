@@ -51,4 +51,16 @@ public class ConsultantController {
         return responseEntity;
     }
 
+    @GetMapping(path = "/view-names")
+    public ResponseEntity<List<String>> getAllConsultantNames() {
+        List<String> consultantNames = consultantService.getAllConsultantNames();
+        return ResponseEntity.ok(consultantNames);
+    }
+
+    @GetMapping(path = "/view-emails")
+    public ResponseEntity<List<String>> getAllConsultantEmails() {
+        List<String> consultantEmails = consultantService.getAllConsultantEmails();
+        return ResponseEntity.ok(consultantEmails);
+    }
+
 }

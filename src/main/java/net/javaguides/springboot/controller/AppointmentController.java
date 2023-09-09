@@ -2,6 +2,8 @@ package net.javaguides.springboot.controller;
 
 
 import net.javaguides.springboot.dto.AppointmentDto;
+import net.javaguides.springboot.entity.Appointment;
+import net.javaguides.springboot.repository.AppointmentRepository;
 import net.javaguides.springboot.service.AppointmentService;
 import net.javaguides.springboot.util.StandardResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,15 +12,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/appointment")
 @CrossOrigin
 public class AppointmentController {
 
     @Autowired
     private AppointmentService appointmentService;
+
+    @Autowired
+    private AppointmentRepository appointmentRepository;
 
     @PostMapping("/save")
     public ResponseEntity<StandardResponse> saveAppointment(@RequestBody AppointmentDto appointmentDto){
@@ -53,5 +59,25 @@ public class AppointmentController {
         return responseEntity;
     }
 
-}
+    @GetMapping(path = "/view-appointments")
+    public ResponseEntity<List<Appointment>> viewAppointmentsForConsultant(HttpServletRequest request) {
+        // Obtain the consultant's name from the session, token, or any other source
+        String email = (String) request.getAttribute("email"); // Replace with your actual logic
 
+        List<Appointment> consultantAppointments = appointmentRepository.findByEmail(email);
+
+        return ResponseEntity.ok(consultantAppointments);
+    }
+
+//    @PostMapping("/consultant-email/{email}")
+//    public List<Appointment> filterByEmail(@PathVariable String email) {
+//
+//        return appointmentRepository.findAppointmentByEmail(email);
+//    }
+
+    @GetMapping("/by-email/{email}")
+    public List<Appointment> getAppointmentsByEmail(@RequestParam String email) {
+        return appointmentService.getAppointmentsByEmail(email);
+    }
+
+}

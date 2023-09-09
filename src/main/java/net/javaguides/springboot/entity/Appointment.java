@@ -30,6 +30,9 @@ public class Appointment {
     @Column(name = "consultant_name",length = 100,nullable = false)
     private String consultantName;
 
+    @Column(name = "email",length = 100,nullable = false)
+    private String email;
+
     @Column(name = "date",length = 100,nullable = false)
     private String date;
 
