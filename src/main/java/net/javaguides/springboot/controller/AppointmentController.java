@@ -69,15 +69,17 @@ public class AppointmentController {
         return ResponseEntity.ok(consultantAppointments);
     }
 
-//    @PostMapping("/consultant-email/{email}")
-//    public List<Appointment> filterByEmail(@PathVariable String email) {
-//
-//        return appointmentRepository.findAppointmentByEmail(email);
-//    }
 
-    @GetMapping("/by-email/{email}")
-    public List<Appointment> getAppointmentsByEmail(@RequestParam String email) {
-        return appointmentService.getAppointmentsByEmail(email);
+    @PostMapping("/consultant-email/{email}")
+    public List<Appointment> filterByCounsultEmail(@PathVariable String email) {
+
+        return appointmentRepository.findAppointmentByEmail(email);
+    }
+
+    @PostMapping("/user-email/{lastName}")
+    public List<Appointment> findAppointmentByLastName(@PathVariable String lastName) {
+
+        return appointmentRepository.findAppointmentByLastName(lastName);
     }
 
 }

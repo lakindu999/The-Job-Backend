@@ -14,6 +14,4 @@ public interface AppointmentService {
     void updateAppointments(AppointmentDto appointmentDto);
 
     void deleteAppointment(int id);
-
-    List<Appointment> getAppointmentsByEmail(String email);
 }

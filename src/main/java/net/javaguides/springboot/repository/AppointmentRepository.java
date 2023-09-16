@@ -15,8 +15,10 @@ public interface AppointmentRepository extends JpaRepository<Appointment,Integer
     List<Appointment> findByEmail(String email);
 
 
-//    @Query(value = "SELECT * FROM appointment WHERE email = :email", nativeQuery = true)
-//    List<Appointment> findAppointmentByEmail(@Param("email") String email);
-//
+    @Query(value = "SELECT * FROM appointment WHERE email = :email", nativeQuery = true)
+    List<Appointment> findAppointmentByEmail(@Param("email") String email);
+
+    @Query(value = "SELECT * FROM appointment WHERE last_name = :lastName", nativeQuery = true)
+    List<Appointment> findAppointmentByLastName(@Param("lastName") String lastName);
 
 }

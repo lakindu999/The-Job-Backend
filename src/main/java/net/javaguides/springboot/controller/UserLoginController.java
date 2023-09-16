@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,17 +21,18 @@ public class UserLoginController {
     @Autowired
     private UserLoginRepo userLoginRepo;
 
-    //User Login
-    @PostMapping("/login")
-    public ResponseEntity<Object> login(@RequestBody UserLoginDto userLoginDto) {
+    //UserLogin
+    @PostMapping("/save")
+    public ResponseEntity<Object> login(@RequestBody UserLoginDto userLoginDto, HttpSession session) {
         String email = userLoginDto.getEmail();
         String password = userLoginDto.getPassword();
 
         User user = userLoginRepo.findByEmailAndPassword(email, password);
         if (user != null) {
             // User authenticated successfully
-            return  Response.responseBuilder("User Login Successfully.", HttpStatus.OK, userLoginRepo.findByEmailAndPassword(email, password));
+            session.setAttribute("email", email);
 
+            return Response.responseBuilder("User Login Successfully.", HttpStatus.OK, userLoginRepo.findByEmailAndPassword(email, password));
         } else {
             // Invalid credentials
             Map<String, String> errorResponse = new HashMap<>();

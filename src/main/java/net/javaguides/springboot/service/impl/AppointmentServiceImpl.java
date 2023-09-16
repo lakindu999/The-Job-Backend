@@ -22,7 +22,6 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Autowired
     private AppointmentRepository appointmentRepository;
 
-
     @Override
     public String saveAppointment(AppointmentDto appointmentDto) {
         Appointment appointment = modelMapper.map(appointmentDto, Appointment.class);
@@ -63,9 +62,5 @@ public class AppointmentServiceImpl implements AppointmentService {
         }
     }
 
-    @Override
-    public List<Appointment> getAppointmentsByEmail(String email) {
-        return appointmentRepository.findByEmail(email);
-    }
 }
 
